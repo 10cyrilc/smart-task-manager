@@ -54,7 +54,7 @@ final class FirebaseFirestoreProvider
   }
 }
 
-String _$firebaseFirestoreHash() => r'2e7f8bd195d91c027c5155f34b719187867bc113';
+String _$firebaseFirestoreHash() => r'da44e0544482927855093596d84cb41842b27214';
 
 @ProviderFor(profileRepository)
 final profileRepositoryProvider = ProfileRepositoryProvider._();
@@ -101,7 +101,7 @@ final class ProfileRepositoryProvider
   }
 }
 
-String _$profileRepositoryHash() => r'8f3ca2719679b9c154118f475ee3370c20397594';
+String _$profileRepositoryHash() => r'4642c03f450f677f49b8bde9cd1523c81eaa8b81';
 
 @ProviderFor(currentUserProfile)
 final currentUserProfileProvider = CurrentUserProfileProvider._();
@@ -141,4 +141,4 @@ final class CurrentUserProfileProvider
 }
 
 String _$currentUserProfileHash() =>
-    r'4fe17d287872348240f3ac7f7031aa34bc44e1f9';
+    r'd70970d895e9e641ae32b53cf98e63720c528117';
