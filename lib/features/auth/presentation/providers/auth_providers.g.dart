@@ -48,7 +48,7 @@ final class FirebaseAuthProvider
   }
 }
 
-String _$firebaseAuthHash() => r'46c40b7c5cf8ab936c0daa96a6af106bd2ae5d51';
+String _$firebaseAuthHash() => r'cb440927c3ab863427fd4b052a8ccba4c024c863';
 
 @ProviderFor(authRemoteDataSource)
 final authRemoteDataSourceProvider = AuthRemoteDataSourceProvider._();
@@ -96,7 +96,7 @@ final class AuthRemoteDataSourceProvider
 }
 
 String _$authRemoteDataSourceHash() =>
-    r'52fa0f2bcadc0611a1b558e0d5b5e12a51f79755';
+    r'7860898f71d678b3e04d4a39feb7f57e4ccbe41e';
 
 @ProviderFor(authRepository)
 final authRepositoryProvider = AuthRepositoryProvider._();
@@ -137,7 +137,7 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'470c99b690ead1be8857668cf09b68f40dac1fb2';
+String _$authRepositoryHash() => r'214302ada98dd01a4decde643914b36b035ae520';
 
 @ProviderFor(loginUseCase)
 final loginUseCaseProvider = LoginUseCaseProvider._();
@@ -178,7 +178,7 @@ final class LoginUseCaseProvider
   }
 }
 
-String _$loginUseCaseHash() => r'e5d70fa1e5543d7d6609678d0835d0c67d436c2d';
+String _$loginUseCaseHash() => r'e082833fd1fc26be8c5fac08d612713cb2c18a17';
 
 @ProviderFor(registerUseCase)
 final registerUseCaseProvider = RegisterUseCaseProvider._();
@@ -220,7 +220,7 @@ final class RegisterUseCaseProvider
   }
 }
 
-String _$registerUseCaseHash() => r'40b32ebe481f7183de4ac3eaac00f8473d98eaeb';
+String _$registerUseCaseHash() => r'0f1f842bd5399c007cd5e8089bff9c56ec0c7618';
 
 @ProviderFor(logoutUseCase)
 final logoutUseCaseProvider = LogoutUseCaseProvider._();
@@ -261,7 +261,7 @@ final class LogoutUseCaseProvider
   }
 }
 
-String _$logoutUseCaseHash() => r'1fca1b81dfb37219a50c22eae4fcd06bbc34f80d';
+String _$logoutUseCaseHash() => r'2b963e9e0eff2155f687d45b1b5c652ddb695d62';
 
 @ProviderFor(authStateChanges)
 final authStateChangesProvider = AuthStateChangesProvider._();
@@ -295,4 +295,4 @@ final class AuthStateChangesProvider
   }
 }
 
-String _$authStateChangesHash() => r'672cd1e59d4ffc05aeb2a02e099703ad6126905c';
+String _$authStateChangesHash() => r'52597f5e5634b4c835eea9a554cb643a3b0bc937';
