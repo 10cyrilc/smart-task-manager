@@ -30,49 +30,64 @@ class ProfileScreen extends ConsumerWidget {
           if (profile == null) {
             return const Center(child: Text('Profile not found.'));
           }
-          return ListView(
-            padding: const EdgeInsets.all(16.0),
-            children: [
-              const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
-              const SizedBox(height: 16),
-              Text(profile.name, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-              const SizedBox(height: 8),
-              Text(
-                profile.email,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                textAlign: TextAlign.center,
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: ListView(
+                padding: const EdgeInsets.all(24.0),
+                children: [
+                  const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
+                  const SizedBox(height: 16),
+                  Text(profile.name, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+                  const SizedBox(height: 8),
+                  Text(
+                    profile.email,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                          leading: const Icon(Icons.edit),
+                          title: const Text('Edit Profile Name'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () {
+                            _showEditNameDialog(context, ref, profile.id, profile.name);
+                          },
+                        ),
+                        const Divider(height: 1),
+                        ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                          leading: const Icon(Icons.palette),
+                          title: const Text('Theme Mode'),
+                          trailing: DropdownButton<ThemeMode>(
+                            value: themeMode,
+                            underline: const SizedBox(),
+                            onChanged: (ThemeMode? newMode) {
+                              if (newMode != null) {
+                                ref.read(themeModeProvider.notifier).setTheme(newMode);
+                              }
+                            },
+                            items: const [
+                              DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
+                              DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
+                              DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 32),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.edit),
-                title: const Text('Edit Profile Name'),
-                onTap: () {
-                  _showEditNameDialog(context, ref, profile.id, profile.name);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.palette),
-                title: const Text('Theme Mode'),
-                trailing: DropdownButton<ThemeMode>(
-                  value: themeMode,
-                  onChanged: (ThemeMode? newMode) {
-                    if (newMode != null) {
-                      ref.read(themeModeProvider.notifier).setTheme(newMode);
-                    }
-                  },
-                  items: const [
-                    DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
-                    DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
-                    DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
-                  ],
-                ),
-              ),
-              const Divider(),
-            ],
+            ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
