@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/network/connectivity_provider.dart';
-import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../domain/entities/task_entity.dart';
 import '../controllers/task_controller.dart';
 import '../controllers/task_state.dart';
@@ -44,7 +43,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     }
   }
 
-  void /**/_onSearchChanged(String query) {
+  void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       ref.read(taskControllerProvider.notifier).setSearchQuery(query);
@@ -71,9 +70,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tasks'),
-        actions: [
-          IconButton(icon: const Icon(Icons.person), onPressed: () => context.push('/profile')),
-        ],
+        actions: [IconButton(icon: const Icon(Icons.person), onPressed: () => context.push('/profile'))],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(
@@ -135,7 +132,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               children: [
                                 Icon(Icons.task_alt, size: 80, color: Theme.of(context).colorScheme.primaryContainer),
                                 const SizedBox(height: 16),
-                                Text('No tasks found.', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                                Text(
+                                  'No tasks found.',
+                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
                                 const SizedBox(height: 8),
                                 const Text('Enjoy your free time or add a new task!'),
                               ],
@@ -286,7 +288,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         borderRadius: BorderRadius.circular(12),
                         side: BorderSide(color: Theme.of(context).colorScheme.outline),
                       ),
-                      title: Text(dueDate == null ? 'Select Due Date' : 'Due: ${dueDate!.toLocal().toString().split(' ')[0]}'),
+                      title: Text(
+                        dueDate == null ? 'Select Due Date' : 'Due: ${dueDate!.toLocal().toString().split(' ')[0]}',
+                      ),
                       trailing: const Icon(Icons.calendar_today),
                       onTap: () async {
                         final date = await showDatePicker(
