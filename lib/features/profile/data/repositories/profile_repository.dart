@@ -22,5 +22,9 @@ class ProfileRepository {
     await _firestore.collection('users').doc(userId).update({'themeMode': themeMode});
   }
   
-  // Future methods for update profile...
+  Future<void> updateProfile(String userId, String name) async {
+    await _firestore.collection('users').doc(userId).update({
+      'name': name,
+    });
+  }
 }
