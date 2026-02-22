@@ -19,7 +19,7 @@ class UserProfile {
       email: map['email'] as String? ?? '',
       name: map['name'] as String? ?? 'Unknown',
       createdAt: map['createdAt'] != null 
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'].seconds * 1000)
+          ? (map['createdAt'] as dynamic).toDate()
           : DateTime.now(),
       themeMode: map['themeMode'] as String? ?? 'system',
     );
