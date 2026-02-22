@@ -24,6 +24,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Smart Task Manager',
       themeMode: themeMode,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
         useMaterial3: true,

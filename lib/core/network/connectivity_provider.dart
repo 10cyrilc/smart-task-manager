@@ -1,11 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final connectivityProvider = StreamProvider<List<ConnectivityResult>>((ref) {
+part 'connectivity_provider.g.dart';
+
+@riverpod
+Stream<List<ConnectivityResult>> connectivity(Ref ref) {
   return Connectivity().onConnectivityChanged;
-});
+}
 
-final isOfflineProvider = Provider<bool>((ref) {
+@riverpod
+bool isOffline(Ref ref) {
   final connectivityState = ref.watch(connectivityProvider);
 
   return connectivityState.when(
@@ -13,4 +17,4 @@ final isOfflineProvider = Provider<bool>((ref) {
     loading: () => false,
     error: (_, __) => false,
   );
-});
+}
