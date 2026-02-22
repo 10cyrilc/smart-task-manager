@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "Running flutter analyze before push..."
+
+dart format .
+
+STATUS=$?
+
+if [ $STATUS -ne 0 ]; then
+    echo "❌ Flutter format failed. Please fix the issues before pushing."
+    exit 1
+fi
+
+echo "✅ Flutter format passed."
+exit 0
