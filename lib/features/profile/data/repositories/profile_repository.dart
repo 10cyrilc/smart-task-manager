@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../domain/entities/user_profile.dart';
 
 class ProfileRepository {
+  ProfileRepository(this._firestore);
+
   final FirebaseFirestore _firestore;
 
-  ProfileRepository(this._firestore);
 
   Future<UserProfile?> getUserProfile(String userId) async {
     final doc = await _firestore.collection('users').doc(userId).get();
