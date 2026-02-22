@@ -25,16 +25,35 @@ jobs:
           channel: stable
           cache: true
 
+      # Decode env.json
+      - name: Decode env.json
+        shell: bash
+        run: |
+          echo "$ENV_JSON" | base64 -d > env.json
+        env:
+          ENV_JSON: ${{ secrets.ENV_JSON }}
+
+      # Decode google-services.json
+      - name: Decode google-services.json
+        shell: bash
+        run: |
+          echo "$GOOGLE_SERVICES" | base64 -d > android/app/google-services.json
+        env:
+          GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze project
+      - name: Analyze
         run: flutter analyze
 
-      - name: Build APK (release)
-        run: flutter build apk --release
+      - name: Test
+        run: flutter test
 
-      - name: Upload APK artifact
+      - name: Build APK
+        run: flutter build apk --release --dart-define-from-file=env.json
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
