@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../auth/presentation/controllers/auth_controller.dart';
-import '../../../auth/presentation/providers/auth_providers.dart';
-import '../providers/profile_providers.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../providers/profile_providers.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -13,7 +12,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(currentUserProfileProvider);
     final themeMode = ref.watch(themeModeProvider);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -34,22 +33,15 @@ class ProfileScreen extends ConsumerWidget {
           return ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              const CircleAvatar(
-                radius: 50,
-                child: Icon(Icons.person, size: 50),
-              ),
+              const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
               const SizedBox(height: 16),
-              Text(
-                profile.name,
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
+              Text(profile.name, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
               const SizedBox(height: 8),
               Text(
                 profile.email,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
@@ -73,18 +65,9 @@ class ProfileScreen extends ConsumerWidget {
                     }
                   },
                   items: const [
-                    DropdownMenuItem(
-                      value: ThemeMode.system,
-                      child: Text('System'),
-                    ),
-                    DropdownMenuItem(
-                      value: ThemeMode.light,
-                      child: Text('Light'),
-                    ),
-                    DropdownMenuItem(
-                      value: ThemeMode.dark,
-                      child: Text('Dark'),
-                    ),
+                    DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
+                    DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
+                    DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
                   ],
                 ),
               ),
@@ -100,7 +83,7 @@ class ProfileScreen extends ConsumerWidget {
 
   Future<void> _showEditNameDialog(BuildContext context, WidgetRef ref, String userId, String currentName) async {
     final controller = TextEditingController(text: currentName);
-    
+
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -111,10 +94,7 @@ class ProfileScreen extends ConsumerWidget {
           autofocus: true,
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () async {
               final newName = controller.text.trim();

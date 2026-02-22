@@ -8,6 +8,7 @@ class DioClient {
   DioClient() {
     _dio = Dio(
       BaseOptions(
+        // ignore: avoid_redundant_argument_values
         baseUrl: ApiConstants.baseUrl,
         connectTimeout: const Duration(milliseconds: ApiConstants.connectTimeout),
         receiveTimeout: const Duration(milliseconds: ApiConstants.receiveTimeout),
