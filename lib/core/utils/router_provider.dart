@@ -11,9 +11,16 @@ import '../../features/tasks/presentation/screens/dashboard_screen.dart';
 
 part 'router_provider.g.dart';
 
+/// Minimum 1-second splash display timer.
+@riverpod
+Future<void> splashDelay(Ref ref) async {
+  await Future.delayed(const Duration(seconds: 1));
+}
+
 @riverpod
 GoRouter router(Ref ref) {
   final authState = ref.watch(authStateChangesProvider);
+  final splashDone = ref.watch(splashDelayProvider);
 
   return GoRouter(
     initialLocation: '/splash',
@@ -21,13 +28,14 @@ GoRouter router(Ref ref) {
       final isLoading = authState.isLoading;
       final isAuthenticated = authState.value != null;
       final currentLocation = state.matchedLocation;
+      final splashTimerDone = splashDone.hasValue;
 
-      // While loading, stay on splash
-      if (isLoading) {
+      // Stay on splash until BOTH auth resolves AND 1s minimum has passed
+      if (isLoading || !splashTimerDone) {
         return currentLocation == '/splash' ? null : '/splash';
       }
 
-      // Auth resolved
+      // Auth resolved & splash timer done
       final isOnAuthPage =
           currentLocation == '/login' ||
           currentLocation == '/register' ||
