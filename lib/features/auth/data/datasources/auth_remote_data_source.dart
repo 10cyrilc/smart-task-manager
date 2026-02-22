@@ -11,9 +11,10 @@ abstract class AuthRemoteDataSource {
 }
 
 class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
+  FirebaseAuthDataSourceImpl(this._firebaseAuth);
+
   final fb_auth.FirebaseAuth _firebaseAuth;
 
-  FirebaseAuthDataSourceImpl(this._firebaseAuth);
 
   AuthUser _mapFirebaseUser(fb_auth.User user) {
     return AuthUser(
