@@ -640,7 +640,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
 // ─── Task Card Widget ────────────────────────────────────────────────
 
 class _TaskCard extends StatelessWidget {
-
   const _TaskCard({
     required this.task,
     required this.index,
@@ -784,7 +783,6 @@ class _TaskCard extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-
   const _Chip({
     required this.icon,
     required this.label,
