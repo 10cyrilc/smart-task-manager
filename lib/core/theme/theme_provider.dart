@@ -33,9 +33,11 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
       final String modeString = mode == ThemeMode.light
           ? 'light'
           : mode == ThemeMode.dark
-              ? 'dark'
-              : 'system';
-      await ref.read(profileRepositoryProvider).updateUserTheme(profile.id, modeString);
+          ? 'dark'
+          : 'system';
+      await ref
+          .read(profileRepositoryProvider)
+          .updateUserTheme(profile.id, modeString);
     }
   }
 }

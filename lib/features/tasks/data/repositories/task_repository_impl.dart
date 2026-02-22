@@ -10,7 +10,6 @@ import '../models/pending_operation.dart';
 import '../models/task_model.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
-
   TaskRepositoryImpl(
     this._remoteDataSource,
     this._localDataSource,
@@ -28,10 +27,18 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<List<TaskEntity>> getTasks(String userId, {int skip = 0, int limit = 10}) async {
+  Future<List<TaskEntity>> getTasks(
+    String userId, {
+    int skip = 0,
+    int limit = 10,
+  }) async {
     if (await _isConnected) {
       try {
-        final remoteTasks = await _remoteDataSource.getTasks(userId, skip: skip, limit: limit);
+        final remoteTasks = await _remoteDataSource.getTasks(
+          userId,
+          skip: skip,
+          limit: limit,
+        );
         if (skip == 0) {
           await _localDataSource.cacheTasks(remoteTasks);
         }
@@ -59,11 +66,16 @@ class TaskRepositoryImpl implements TaskRepository {
       // Queue offline
       final localId = DateTime.now().millisecondsSinceEpoch;
       final offlineTask = TaskModel.fromEntity(task.copyWith(id: localId));
-      
+
       await _offlineSyncDataSource.addOperation(
-        PendingOperation(id: localId, type: SyncOperationType.add, task: offlineTask, userId: userId)
+        PendingOperation(
+          id: localId,
+          type: SyncOperationType.add,
+          task: offlineTask,
+          userId: userId,
+        ),
       );
-      
+
       await _appendLocalCache(offlineTask);
       return offlineTask;
     }
@@ -79,9 +91,14 @@ class TaskRepositoryImpl implements TaskRepository {
     } else {
       // Queue offline
       await _offlineSyncDataSource.addOperation(
-        PendingOperation(id: task.id, type: SyncOperationType.update, task: taskModel, userId: userId)
+        PendingOperation(
+          id: task.id,
+          type: SyncOperationType.update,
+          task: taskModel,
+          userId: userId,
+        ),
       );
-      
+
       await _updateLocalCache(taskModel);
       return taskModel;
     }
@@ -93,9 +110,21 @@ class TaskRepositoryImpl implements TaskRepository {
       await _remoteDataSource.deleteTask(userId, taskId);
       await _deleteLocalCache(taskId);
     } else {
-      final dummyTask = TaskModel(id: taskId, title: '', isCompleted: false, priority: '', category: '', userId: userId);
+      final dummyTask = TaskModel(
+        id: taskId,
+        title: '',
+        isCompleted: false,
+        priority: '',
+        category: '',
+        userId: userId,
+      );
       await _offlineSyncDataSource.addOperation(
-        PendingOperation(id: taskId, type: SyncOperationType.delete, task: dummyTask, userId: userId)
+        PendingOperation(
+          id: taskId,
+          type: SyncOperationType.delete,
+          task: dummyTask,
+          userId: userId,
+        ),
       );
       await _deleteLocalCache(taskId);
     }

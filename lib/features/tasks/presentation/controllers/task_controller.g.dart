@@ -33,7 +33,7 @@ final class TaskControllerProvider
   TaskController create() => TaskController();
 }
 
-String _$taskControllerHash() => r'f3e66f1926d874fc3433d738206d7db13e2973d4';
+String _$taskControllerHash() => r'047960d4e35244599358829e6e3f0e71b491f71f';
 
 abstract class _$TaskController extends $AsyncNotifier<TaskState> {
   FutureOr<TaskState> build();
