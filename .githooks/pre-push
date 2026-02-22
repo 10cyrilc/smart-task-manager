@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "Running flutter analyze before push..."
+
+flutter analyze
+
+STATUS=$?
+
+if [ $STATUS -ne 0 ]; then
+    echo "❌ Flutter analyze failed. Please fix the issues before pushing."
+    exit 1
+fi
+
+echo "✅ Flutter analyze passed."
+exit 0
