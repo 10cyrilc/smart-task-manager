@@ -1,10 +1,10 @@
 import '../../domain/entities/task_entity.dart';
 
 enum TaskFilter { all, completed, pending }
+
 enum TaskSort { dueDate, priority, createdDate }
 
 class TaskState {
-
   const TaskState({
     this.tasks = const [],
     this.isLoadingMore = false,
@@ -52,7 +52,11 @@ class TaskState {
 
     // 1. Search (Title)
     if (searchQuery.isNotEmpty) {
-      result = result.where((t) => t.title.toLowerCase().contains(searchQuery.toLowerCase())).toList();
+      result = result
+          .where(
+            (t) => t.title.toLowerCase().contains(searchQuery.toLowerCase()),
+          )
+          .toList();
     }
 
     // 2. Filter
@@ -73,7 +77,11 @@ class TaskState {
         });
         break;
       case TaskSort.priority:
-        final Map<String, int> priorityValues = {'High': 1, 'Medium': 2, 'Low': 3};
+        final Map<String, int> priorityValues = {
+          'High': 1,
+          'Medium': 2,
+          'Low': 3,
+        };
         result.sort((a, b) {
           final int valA = priorityValues[a.priority] ?? 4;
           final int valB = priorityValues[b.priority] ?? 4;

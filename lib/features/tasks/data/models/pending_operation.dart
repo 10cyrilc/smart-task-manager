@@ -3,7 +3,6 @@ import '../models/task_model.dart';
 enum SyncOperationType { add, update, delete }
 
 class PendingOperation {
-
   const PendingOperation({
     required this.id,
     required this.type,

@@ -1,32 +1,55 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
+import '../../features/auth/presentation/screens/splash_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/tasks/presentation/screens/dashboard_screen.dart';
 
 part 'router_provider.g.dart';
 
+/// Minimum 1-second splash display timer.
+@riverpod
+Future<void> splashDelay(Ref ref) async {
+  await Future.delayed(const Duration(seconds: 1));
+}
+
 @riverpod
 GoRouter router(Ref ref) {
   final authState = ref.watch(authStateChangesProvider);
+  final splashDone = ref.watch(splashDelayProvider);
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     redirect: (context, state) {
-      if (authState.isLoading) return null;
-
+      final isLoading = authState.isLoading;
       final isAuthenticated = authState.value != null;
-      final isGoingToLogin = state.matchedLocation == '/login';
-      final isGoingToRegister = state.matchedLocation == '/register';
+      final currentLocation = state.matchedLocation;
+      final splashTimerDone = splashDone.hasValue;
 
-      if (!isAuthenticated && !isGoingToLogin && !isGoingToRegister) {
+      // Stay on splash until BOTH auth resolves AND 1s minimum has passed
+      if (isLoading || !splashTimerDone) {
+        return currentLocation == '/splash' ? null : '/splash';
+      }
+
+      // Auth resolved & splash timer done
+      final isOnAuthPage =
+          currentLocation == '/login' ||
+          currentLocation == '/register' ||
+          currentLocation == '/splash';
+
+      if (!isAuthenticated && !isOnAuthPage) {
         return '/login';
       }
 
-      if (isAuthenticated && (isGoingToLogin || isGoingToRegister)) {
+      if (!isAuthenticated && currentLocation == '/splash') {
+        return '/login';
+      }
+
+      if (isAuthenticated && isOnAuthPage) {
         return '/dashboard';
       }
 
@@ -34,20 +57,68 @@ GoRouter router(Ref ref) {
     },
     routes: [
       GoRoute(
+        path: '/splash',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const SplashScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      ),
+      GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const LoginScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
       ),
       GoRoute(
         path: '/register',
-        builder: (context, state) => const RegisterScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const RegisterScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final slideTween = Tween(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeOutCubic));
+            return SlideTransition(
+              position: animation.drive(slideTween),
+              child: FadeTransition(opacity: animation, child: child),
+            );
+          },
+        ),
       ),
       GoRoute(
         path: '/dashboard',
-        builder: (context, state) => const DashboardScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const DashboardScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
       ),
       GoRoute(
         path: '/profile',
-        builder: (context, state) => const ProfileScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const ProfileScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final slideTween = Tween(
+              begin: const Offset(0.0, 0.15),
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeOutCubic));
+            return SlideTransition(
+              position: animation.drive(slideTween),
+              child: FadeTransition(opacity: animation, child: child),
+            );
+          },
+        ),
       ),
     ],
   );

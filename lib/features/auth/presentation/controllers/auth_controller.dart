@@ -32,11 +32,17 @@ class AuthController extends _$AuthController {
       try {
         final registerUseCase = ref.read(registerUseCaseProvider);
         final profileRepository = ref.read(profileRepositoryProvider);
-        
+
         final user = await registerUseCase.execute(email, password, name);
 
         await profileRepository.createUserProfile(
-          UserProfile(id: user.id, email: user.email, name: name, createdAt: DateTime.now(), themeMode: 'system'),
+          UserProfile(
+            id: user.id,
+            email: user.email,
+            name: name,
+            createdAt: DateTime.now(),
+            themeMode: 'system',
+          ),
         );
       } on Exception catch (e) {
         final failure = ErrorMapper.mapExceptionToFailure(e);

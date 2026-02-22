@@ -22,9 +22,9 @@ class TaskController extends _$TaskController {
 
     final repo = ref.watch(taskRepositoryProvider);
     const limit = 10;
-    
+
     final tasks = await repo.getTasks(user.id);
-    
+
     return TaskState(
       tasks: tasks,
       skip: tasks.length,
@@ -34,7 +34,11 @@ class TaskController extends _$TaskController {
 
   Future<void> loadMore() async {
     final currentState = state.value;
-    if (currentState == null || currentState.isLoadingMore || currentState.hasReachedMax) return;
+    if (currentState == null ||
+        currentState.isLoadingMore ||
+        currentState.hasReachedMax) {
+      return;
+    }
 
     final user = await ref.read(authStateChangesProvider.future);
     if (user == null) return;
@@ -104,7 +108,9 @@ class TaskController extends _$TaskController {
 
       // Exchange optimistic item with the one fetched from API
       // Match by the temporary ID we created for optimistic update.
-      final finalTasks = state.value!.tasks.map((t) => t.id == task.id ? addedTask : t).toList();
+      final finalTasks = state.value!.tasks
+          .map((t) => t.id == task.id ? addedTask : t)
+          .toList();
       state = AsyncData(state.value!.copyWith(tasks: finalTasks));
     } catch (e) {
       // Revert Optimistic Update
@@ -118,7 +124,9 @@ class TaskController extends _$TaskController {
     if (currentState == null) return;
 
     // Optimistic Update
-    final tempTasks = currentState.tasks.map((t) => t.id == task.id ? task : t).toList();
+    final tempTasks = currentState.tasks
+        .map((t) => t.id == task.id ? task : t)
+        .toList();
     state = AsyncData(currentState.copyWith(tasks: tempTasks));
 
     try {
@@ -128,7 +136,9 @@ class TaskController extends _$TaskController {
       final repo = ref.read(taskRepositoryProvider);
       final updatedTask = await repo.updateTask(user.id, task);
 
-      final finalTasks = state.value!.tasks.map((t) => t.id == task.id ? updatedTask : t).toList();
+      final finalTasks = state.value!.tasks
+          .map((t) => t.id == task.id ? updatedTask : t)
+          .toList();
       state = AsyncData(state.value!.copyWith(tasks: finalTasks));
     } catch (e) {
       state = AsyncData(currentState);

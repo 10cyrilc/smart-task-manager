@@ -15,7 +15,9 @@ class TaskLocalDataSourceImpl implements TaskLocalDataSource {
   @override
   Future<void> cacheTasks(List<TaskModel> tasks) async {
     final box = await Hive.openBox(_boxName);
-    final List<Map<String, dynamic>> jsonList = tasks.map((t) => t.toJson()).toList();
+    final List<Map<String, dynamic>> jsonList = tasks
+        .map((t) => t.toJson())
+        .toList();
     final String jsonString = jsonEncode(jsonList);
     await box.put(_cachedTasksKey, jsonString);
   }

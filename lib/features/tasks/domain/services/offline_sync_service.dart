@@ -3,7 +3,6 @@ import '../../data/datasources/task_remote_data_source.dart';
 import '../../data/models/pending_operation.dart';
 
 class OfflineSyncService {
-
   OfflineSyncService(this._offlineDataSource, this._remoteDataSource);
   final OfflineSyncDataSource _offlineDataSource;
   final TaskRemoteDataSource _remoteDataSource;
