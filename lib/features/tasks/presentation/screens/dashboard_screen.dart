@@ -431,7 +431,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<String>(
-                            value: priority,
+                            initialValue: priority,
                             decoration: const InputDecoration(
                               labelText: 'Priority',
                               prefixIcon: Icon(Icons.flag_rounded),
@@ -456,7 +456,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
                         const SizedBox(width: 16),
                         Expanded(
                           child: DropdownButtonFormField<String>(
-                            value: category,
+                            initialValue: category,
                             decoration: const InputDecoration(
                               labelText: 'Category',
                               prefixIcon: Icon(Icons.category_rounded),
