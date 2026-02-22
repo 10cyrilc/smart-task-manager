@@ -16,7 +16,9 @@ class ErrorMapper {
     } else if (exception is AppException) {
       return GeneralFailure(exception.message, code: exception.code);
     } else {
-      return GeneralFailure('An unexpected error occurred: ${exception.toString()}');
+      return GeneralFailure(
+        'An unexpected error occurred: ${exception.toString()}',
+      );
     }
   }
 }

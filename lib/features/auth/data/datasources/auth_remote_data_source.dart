@@ -15,7 +15,6 @@ class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
 
   final fb_auth.FirebaseAuth _firebaseAuth;
 
-
   AuthUser _mapFirebaseUser(fb_auth.User user) {
     return AuthUser(
       id: user.uid,
@@ -77,10 +76,10 @@ class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
       if (userCredential.user == null) {
         throw const AuthException('Registration failed: User is null.');
       }
-      
+
       // Update display name
       await userCredential.user!.updateDisplayName(name);
-      
+
       return AuthUser(
         id: userCredential.user!.uid,
         email: email,

@@ -6,7 +6,6 @@ class ProfileRepository {
 
   final FirebaseFirestore _firestore;
 
-
   Future<UserProfile?> getUserProfile(String userId) async {
     final doc = await _firestore.collection('users').doc(userId).get();
     if (doc.exists && doc.data() != null) {
@@ -20,12 +19,12 @@ class ProfileRepository {
   }
 
   Future<void> updateUserTheme(String userId, String themeMode) async {
-    await _firestore.collection('users').doc(userId).update({'themeMode': themeMode});
-  }
-  
-  Future<void> updateProfile(String userId, String name) async {
     await _firestore.collection('users').doc(userId).update({
-      'name': name,
+      'themeMode': themeMode,
     });
+  }
+
+  Future<void> updateProfile(String userId, String name) async {
+    await _firestore.collection('users').doc(userId).update({'name': name});
   }
 }
