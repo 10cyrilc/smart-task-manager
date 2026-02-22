@@ -18,7 +18,9 @@ class LoggingInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     if (kDebugMode) {
-      print('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+      print(
+        'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
+      );
       print('Data: ${response.data}');
     }
     super.onResponse(response, handler);
@@ -27,7 +29,9 @@ class LoggingInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) {
-      print('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+      print(
+        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+      );
       print('Message: ${err.message}');
       if (err.response?.data != null) {
         print('Error Data: ${err.response?.data}');

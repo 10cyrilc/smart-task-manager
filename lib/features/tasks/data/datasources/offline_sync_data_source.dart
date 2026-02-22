@@ -9,11 +9,13 @@ class OfflineSyncDataSource {
   Future<void> addOperation(PendingOperation operation) async {
     final box = await Hive.openBox(_boxName);
     final String? existingJson = box.get(_opsKey);
-    final List<dynamic> list = existingJson != null ? jsonDecode(existingJson) : [];
-    
+    final List<dynamic> list = existingJson != null
+        ? jsonDecode(existingJson)
+        : [];
+
     // Convert to maps
     list.add(operation.toJson());
-    
+
     await box.put(_opsKey, jsonEncode(list));
   }
 
