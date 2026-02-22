@@ -5,27 +5,30 @@ import '../../../../core/network/dio_client.dart';
 import '../models/task_model.dart';
 
 abstract class TaskRemoteDataSource {
-  Future<List<TaskModel>> getTasks(String userId, {int skip = 0, int limit = 10});
+  Future<List<TaskModel>> getTasks(
+    String userId, {
+    int skip = 0,
+    int limit = 10,
+  });
   Future<TaskModel> addTask(String userId, TaskModel task);
   Future<TaskModel> updateTask(String userId, TaskModel task);
   Future<void> deleteTask(String userId, int taskId);
 }
 
 class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
-
   TaskRemoteDataSourceImpl(this._dioClient);
   final DioClient _dioClient;
 
   @override
-  Future<List<TaskModel>> getTasks(String userId, {int skip = 0, int limit = 10}) async {
+  Future<List<TaskModel>> getTasks(
+    String userId, {
+    int skip = 0,
+    int limit = 10,
+  }) async {
     try {
       final response = await _dioClient.get(
         '/tasks/',
-        queryParameters: {
-          'user_id': userId,
-          'skip': skip,
-          'limit': limit,
-        },
+        queryParameters: {'user_id': userId, 'skip': skip, 'limit': limit},
       );
       final List<dynamic> data = response.data['data'] ?? [];
       return data.map((json) => TaskModel.fromJson(json)).toList();

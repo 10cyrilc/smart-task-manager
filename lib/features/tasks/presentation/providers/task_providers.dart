@@ -34,7 +34,12 @@ TaskRepository taskRepository(Ref ref) {
   final offlineSyncSource = ref.watch(offlineSyncDataSourceProvider);
   final connectivity = Connectivity();
 
-  return TaskRepositoryImpl(remoteDataSource, localDataSource, offlineSyncSource, connectivity);
+  return TaskRepositoryImpl(
+    remoteDataSource,
+    localDataSource,
+    offlineSyncSource,
+    connectivity,
+  );
 }
 
 @Riverpod(keepAlive: true)

@@ -17,18 +17,31 @@ class ErrorInterceptor extends Interceptor {
         break;
       case DioExceptionType.badResponse:
         final statusCode = err.response?.statusCode;
-        final errorMessage = err.response?.data['message'] ?? 'An error occurred with the server.';
+        final errorMessage =
+            err.response?.data['message'] ??
+            'An error occurred with the server.';
 
         if (statusCode == 401 || statusCode == 403) {
-          appException = AuthException(errorMessage, code: statusCode?.toString());
+          appException = AuthException(
+            errorMessage,
+            code: statusCode?.toString(),
+          );
         } else if (statusCode != null && statusCode >= 500) {
-          appException = ServerException(errorMessage, code: statusCode.toString());
+          appException = ServerException(
+            errorMessage,
+            code: statusCode.toString(),
+          );
         } else {
-          appException = ServerException(errorMessage, code: statusCode?.toString());
+          appException = ServerException(
+            errorMessage,
+            code: statusCode?.toString(),
+          );
         }
         break;
       case DioExceptionType.cancel:
-        appException = const ServerException('Request to the server was cancelled.');
+        appException = const ServerException(
+          'Request to the server was cancelled.',
+        );
         break;
       case DioExceptionType.connectionError:
         appException = const NetworkException('No internet connection.');
@@ -37,7 +50,9 @@ class ErrorInterceptor extends Interceptor {
       case DioExceptionType.badCertificate:
         // Default case for unexpected errors
         // No need for default case as we've already handled all other cases
-        appException = ServerException('An unexpected error occurred: ${err.message}');
+        appException = ServerException(
+          'An unexpected error occurred: ${err.message}',
+        );
         break;
     }
     handler.next(err.copyWith(error: appException));

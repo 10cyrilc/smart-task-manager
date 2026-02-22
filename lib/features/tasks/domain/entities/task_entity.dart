@@ -1,5 +1,4 @@
 class TaskEntity {
-
   const TaskEntity({
     required this.id,
     required this.title,
