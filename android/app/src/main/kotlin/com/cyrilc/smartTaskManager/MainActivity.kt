@@ -1,4 +1,4 @@
-package com.cyrilc.smartTaskManager.smart_task_manager
+package com.cyrilc.smartTaskManager
 
 import io.flutter.embedding.android.FlutterActivity
 
