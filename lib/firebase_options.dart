@@ -42,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDNIprSZrB7L9AzRuG6Yankn1MrSjL8t8U',
-    appId: '1:298502075473:web:c82a87c9bc328b5cd9b470',
+    appId: '1:298502075473:web:670aea690047a725d9b470',
     messagingSenderId: '298502075473',
     projectId: 'smart-task-manager-93463',
     authDomain: 'smart-task-manager-93463.firebaseapp.com',
     storageBucket: 'smart-task-manager-93463.firebasestorage.app',
-    measurementId: 'G-RYT1EWWE2H',
+    measurementId: 'G-J2KHQ6MNF2',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAZQNIKGhmWLCz7O5r1k8HPYOPrQjcZKHE',
-    appId: '1:298502075473:android:bfe37e62be0e1aded9b470',
+    appId: '1:298502075473:android:1b07063ade2df540d9b470',
     messagingSenderId: '298502075473',
     projectId: 'smart-task-manager-93463',
     storageBucket: 'smart-task-manager-93463.firebasestorage.app',
@@ -60,29 +60,30 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAedz_oCfrL14fqxgXxuqoNJKPe8yKGOvM',
-    appId: '1:298502075473:ios:6dc947d4bdaf8e0fd9b470',
+    appId: '1:298502075473:ios:38e78e27172a550ad9b470',
     messagingSenderId: '298502075473',
     projectId: 'smart-task-manager-93463',
     storageBucket: 'smart-task-manager-93463.firebasestorage.app',
-    iosBundleId: 'com.cyrilc.smartTaskManager.smartTaskManager',
+    iosBundleId: 'com.cyrilc.smartTaskManager',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAedz_oCfrL14fqxgXxuqoNJKPe8yKGOvM',
-    appId: '1:298502075473:ios:6dc947d4bdaf8e0fd9b470',
+    appId: '1:298502075473:ios:38e78e27172a550ad9b470',
     messagingSenderId: '298502075473',
     projectId: 'smart-task-manager-93463',
     storageBucket: 'smart-task-manager-93463.firebasestorage.app',
-    iosBundleId: 'com.cyrilc.smartTaskManager.smartTaskManager',
+    iosBundleId: 'com.cyrilc.smartTaskManager',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyDNIprSZrB7L9AzRuG6Yankn1MrSjL8t8U',
-    appId: '1:298502075473:web:a5be8dd0340ab63ed9b470',
+    appId: '1:298502075473:web:6e1bd3acd2d439bdd9b470',
     messagingSenderId: '298502075473',
     projectId: 'smart-task-manager-93463',
     authDomain: 'smart-task-manager-93463.firebaseapp.com',
     storageBucket: 'smart-task-manager-93463.firebasestorage.app',
-    measurementId: 'G-ZQZYEWYT5K',
+    measurementId: 'G-KD5ZWBYZYL',
   );
+
 }
